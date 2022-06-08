@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 const Footer: FC = () => {
   const navbarRight = [
-    { name: 'Home', to: '/' },
-    { name: 'Blogs', to: '/blogs' },
-    { name: 'Contact', to: '/contact' },
+    { name: '', to: '/' },
+    { name: '', to: '/blogs' },
+    { name: '', to: '/contact' },
   ];
   const navbarLeft = [
-    { name: 'Home', to: '/' },
-    { name: 'Blogs', to: '/blogs' },
-    { name: 'Contact', to: '/contact' },
+    { name: '', to: '/' },
+    { name: '', to: '/blogs' },
+    { name: '', to: '/contact' },
   ];
   return (
     <header className="header">
