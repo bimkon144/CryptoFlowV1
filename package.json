@@ -1,5 +1,5 @@
 {
-  "name": "MultiSenderV1",
+  "name": "multisender",
   "version": "0.1.0",
   "license": "MIT",
   "description": "Multisender let you send eth, erc20, nft731, nft1155 to multiaddresses",
@@ -34,6 +34,8 @@
     "hardhat-gas-reporter": "^1.0.4",
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
+    "react-router-dom": "^6.3.0",
+    "sol-merger": "^4.1.1",
     "solhint": "^3.3.6",
     "solidity-coverage": "^0.7.16",
     "ts-node": "^10.1.0",
@@ -43,6 +45,7 @@
   "scripts": {
     "lint": "",
     "lint:fix": "",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-contracts": "sol-merger --export-plugin SPDXLicenseRemovePlugin \"./contracts/*.sol\" compiled"
   }
 }

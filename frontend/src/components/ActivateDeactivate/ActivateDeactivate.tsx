@@ -6,9 +6,9 @@ import {
 } from '@web3-react/injected-connector';
 import { MouseEvent, ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import { injected } from '../utils/connectors';
-import { useEagerConnect, useInactiveListener } from '../utils/hooks';
-import { Provider } from '../utils/provider';
+import { injected } from '../../utils/connectors';
+import { useEagerConnect, useInactiveListener } from '../../utils/hooks';
+import { Provider } from '../../utils/provider';
 
 type ActivateFunction = (
   connector: AbstractConnector,
@@ -77,15 +77,16 @@ function Activate(): ReactElement {
     }
 
     _activate(activate);
+    
   }
 
-  // handle logic to eagerly connect to the injected ethereum provider, if it exists and has
-  // granted access already
-  const eagerConnectionSuccessful = useEagerConnect();
+  // // handle logic to eagerly connect to the injected ethereum provider, if it exists and has
+  // // granted access already
+  // const eagerConnectionSuccessful = useEagerConnect();
 
-  // handle logic to connect in reaction to certain events on the injected ethereum provider,
-  // if it exists
-  useInactiveListener(!eagerConnectionSuccessful);
+  // // handle logic to connect in reaction to certain events on the injected ethereum provider,
+  // // if it exists
+  // useInactiveListener(!eagerConnectionSuccessful);
 
   return (
     <StyledActivateButton

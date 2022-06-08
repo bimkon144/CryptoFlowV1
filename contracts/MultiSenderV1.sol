@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
@@ -6,7 +6,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeab
 import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol";
 import "./TransferHelper.sol";
-import "hardhat/console.sol";
+
 
 contract MultiSenderV1 is OwnableUpgradeable {
   using SafeERC20Upgradeable for IERC20Upgradeable;
@@ -99,13 +99,13 @@ contract MultiSenderV1 is OwnableUpgradeable {
   function _multiSendETH(address[] memory _accounts, uint256[] memory _amounts)
     internal
   {
-    console.log('FIre', 123333333);
+
     uint256 _transferredETH;
     for (uint256 i = 0; i < _accounts.length; i++) {
       _accounts[i].safeTransferETH(_amounts[i]);
       _transferredETH += _amounts[i];
     }
-    console.log('currentFee', _currentFee(_accounts.length));
+
     require(
       _transferredETH <= msg.value - _currentFee(_accounts.length),
       "has no enough eth to transfer"

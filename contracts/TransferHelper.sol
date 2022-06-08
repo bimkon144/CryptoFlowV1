@@ -1,7 +1,7 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
-import "hardhat/console.sol";
-// helper methods for interacting with ERC20 tokens and sending ETH that do not consistently return true/false
+
+
 library TransferHelper {
   function safeApprove(
     address token,

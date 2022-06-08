@@ -24,13 +24,26 @@ const config: HardhatUserConfig = {
         // interval: 1000
       }
     },
-    ropsten: {
-      url: process.env.ROPSTEN_URL || '',
-      accounts:
-        process.env.TEST_ETH_ACCOUNT_PRIVATE_KEY !== undefined
-          ? [process.env.TEST_ETH_ACCOUNT_PRIVATE_KEY]
-          : []
+    testnet: {
+      url: process.env.MORALIS_URL,
+      accounts: process.env.WALLET_KEY !== undefined
+        ? [process.env.WALLET_KEY]
+        : []
+        //moralis api for deploy/verify on testnet
+    },
+    mainnet: {
+      url: "https://bsc-dataseed.binance.org/",
+      chainId: 56,
+      gasPrice: 20000000000,
+      accounts: { mnemonic: process.env.MNEMONIC }
     }
+    // ropsten: {
+    //   url: process.env.ROPSTEN_URL || '',
+    //   accounts:
+    //     process.env.TEST_ETH_ACCOUNT_PRIVATE_KEY !== undefined
+    //       ? [process.env.TEST_ETH_ACCOUNT_PRIVATE_KEY]
+    //       : []
+    // }
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,

@@ -1,26 +1,23 @@
 import { ReactElement } from 'react';
-import styled from 'styled-components';
-import { ActivateDeactivate } from './components/ActivateDeactivate';
-import { Greeter } from './components/Greeter';
-import { SectionDivider } from './components/SectionDivider';
-import { SignMessage } from './components/SignMessage';
-import { WalletStatus } from './components/WalletStatus';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 
-const StyledAppDiv = styled.div`
-  display: grid;
-  grid-gap: 20px;
-`;
 
 export function App(): ReactElement {
   return (
-    <StyledAppDiv>
-      <ActivateDeactivate />
-      <SectionDivider />
-      <WalletStatus />
-      <SectionDivider />
-      <SignMessage />
-      <SectionDivider />
-      <Greeter />
-    </StyledAppDiv>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="blogs" element={<Blogs />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
   );
 }
