@@ -2,7 +2,7 @@
   "name": "multisenderv1",
   "version": "0.1.0",
   "license": "MIT",
-  "homepage": "https://bimkon144.github.io/CryptoFlowV1/",
+  "homepage": "https://bimkon144.github.io/CryptoFlowV1",
   "description": "FrontEnd for multiSender",
   "engines": {
     "node": "16.14.0",
