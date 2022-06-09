@@ -7,7 +7,7 @@ import Select from 'react-select';
 import { useWeb3React } from '@web3-react/core';
 import { Provider } from '../../utils/provider';
 import { BigNumber, ethers } from 'ethers';
-import multisenderV1 from '../../artifacts/contracts/MultiSenderV1.sol/MultiSenderV1.json'
+import multisenderV1 from './MultiSenderV1.json'
 import ERC20 from './ERC20.json'
 
 const CsvContainer: React.FC = () => {
