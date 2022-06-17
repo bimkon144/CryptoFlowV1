@@ -18,7 +18,7 @@ https://bimkon144.github.io/CryptoFlowV1/
 - create morallis bsct testnet server
 - create .env based on .env.example and your wallet key, mnemonic , moralis URL, etherscan key, 
 
-- run to deploy ```run npx hardhat run tasks/deploy.ts --network testnet```
+- run to deploy ```npx hardhat run tasks/deploy.ts --network testnet```
 - run verify ```npx hardhat  verify --network testnet "putDeployedAddress"```
 - put your deployed address to the variable multiSendContractAddress in CsvContainer.tsx
 
@@ -32,8 +32,8 @@ https://bimkon144.github.io/CryptoFlowV1/
 cd frontend scripts:
 
 * Run project  - ```npm start```
-* Run build  - ```npm build```
-* Run deploy  - ```npm deploy```
+* Run build  - ```npm run build```
+* Run deploy  - ```npm run deploy```
 
 cd MultiSenderV1 scripts:
 

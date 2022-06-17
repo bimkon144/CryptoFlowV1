@@ -16,10 +16,10 @@ const CsvContainer: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [addresses, setAddresses] = useState(['']);
     const [amounts, setAmounts] = useState<ethers.BigNumber[]>([]);
-    const [tokensList, setTokensList] = useState<{label: string, value: string}[]>([{ label: '', value: '' }]);
+    const [tokensList, setTokensList] = useState<{ label: string, value: string }[]>([{ label: '', value: '' }]);
     const [selectedOption, setSelectedOption] = useState('');
-    const handleChange = (event:any) => setValue(event.target.value);
-    const multiSendContractAddress = "0x92bDE003Ec04a593C57812Cc96070E0952823125";
+    const handleChange = (event: any) => setValue(event.target.value);
+    const multiSendContractAddress = "0x840B92E2DE70F2fdf340F6700cC5E4aCef89278D";
     const Web3Api = useMoralisWeb3Api();
     const context = useWeb3React<Provider>();
     const { library, active, account, chainId } = context;
@@ -39,7 +39,7 @@ const CsvContainer: React.FC = () => {
 
 
     const fetchTokenBalances = async () => {
-        let netIdName, explorerUrl, nativeAssets: any;
+        let netIdName, explorerUrl, nativeAssets, nativeAssetsAddress: any;
         const balance = await library!.getBalance(account!);
         switch (chainId) {
             case 1:
@@ -79,6 +79,7 @@ const CsvContainer: React.FC = () => {
                 netIdName = 'binance testnet'
                 explorerUrl = 'http://bscscan.com/'
                 nativeAssets = 'BNB'
+                nativeAssetsAddress = '0x62b35Eb73edcb96227F666A878201b2cF915c2B5'
                 console.log('This is binance test smart chain', chainId)
                 break;
             default:
@@ -95,15 +96,15 @@ const CsvContainer: React.FC = () => {
             const { token_address, symbol, balance } = contract;
             return { label: `${symbol} - ${ethers.utils.formatUnits(balance)} - ${token_address}`, value: token_address }
         })
-        const options2:any = {
+        const options2: any = {
             chain: "binance testnet",
             address: account,
-          };
-          const bscBalance = await Web3Api.account.getNativeBalance(options2);
-          console.log((+ethers.utils.formatUnits(bscBalance.balance)).toFixed(4));
+        };
+        const bscBalance = await Web3Api.account.getNativeBalance(options2);
+        console.log((+ethers.utils.formatUnits(bscBalance.balance)).toFixed(4));
 
         tokens.unshift({
-            value: nativeAssets,
+            value: nativeAssetsAddress,
             label: `${nativeAssets} - ${(+ethers.utils.formatUnits(balance)).toFixed(4)}`
         })
         setTokensList(tokens)
@@ -138,17 +139,22 @@ const CsvContainer: React.FC = () => {
             try {
                 const signer = library!.getSigner();
                 const multisSendContract = new ethers.Contract(multiSendContractAddress, multisenderV1.abi, signer);
- 
+
                 const tokenContract = new ethers.Contract(selectedOption, ERC20, signer);
                 let result = amounts.reduce(function (sum: ethers.BigNumber, elem) {
                     return sum.add(elem);
                 }, BigNumber.from(0));
-                console.log(result.toString());
-                console.log('data', selectedOption, addresses, amounts);
-                const approved = await tokenContract.approve(multiSendContractAddress, result)
-                await approved.wait();
+                // console.log(result.toString());
+                // console.log('data', selectedOption, addresses, amounts);
+                if (selectedOption === tokensList[0].value) {
+                    await multisSendContract.multiSendNativeToken(addresses, amounts, {value: result});
+                } else {
+                    const approved = await tokenContract.approve(multiSendContractAddress, result)
+                    await approved.wait();
 
-                const setMultisSendTxn = await multisSendContract.multiSend(selectedOption, addresses, amounts);
+                    const setMultisSendTxn = await multisSendContract.multiSendToken(selectedOption, addresses, amounts);
+                }
+
 
             } catch (error: any) {
                 window.alert(
@@ -193,13 +199,13 @@ const CsvContainer: React.FC = () => {
                     onChange={onChange}
                     isLoading={loading}
                     options={tokensList}
-                    isDisabled={tokensList[0].label == ''? true : false}
-                    placeholder={tokensList[0].label == ''? "Loading your token addresses..." : "Your tokens are loaded"}
+                    isDisabled={tokensList[0].label == '' ? true : false}
+                    placeholder={tokensList[0].label == '' ? "Loading your token addresses..." : "Your tokens are loaded"}
                 />
             </div>
             <div className='csv-container__item'>
                 <label className='csv-container__title' htmlFor='text-area'>Список адресов в формате csv </label>
-                <textarea className='csv-container__text-area' onBlur={() => handleReadString()} id="text-area" name="csv-data" value={value} onChange={handleChange}/>
+                <textarea className='csv-container__text-area' onBlur={() => handleReadString()} id="text-area" name="csv-data" value={value} onChange={handleChange} />
             </div>
             <div className='csv-container__item'>
                 <CSVReader setValue={setValue} setAddresses={setAddresses} setAmounts={setAmounts} />
