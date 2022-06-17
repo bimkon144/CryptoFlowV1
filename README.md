@@ -38,5 +38,6 @@ cd frontend scripts:
 cd MultiSenderV1 scripts:
 
 * Run localhost tests  - ```npx hardhat test```
+* Run hardhat clean  - ```npx hardhat clean```
 * Run forked bsc mainnet - ```npx hardhat node --fork https://bsc-dataseed.binance.org/```
 * Run forked bsc testnet```npx hardhat node --fork https://bsc-dataseed.binance.org/```
