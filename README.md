@@ -1,16 +1,42 @@
+# CryotoFlow
 
-npx hardhat node --fork https://bsc-dataseed.binance.org/ form bsc mainnet
-npx hardhat node --fork https://bsc-dataseed.binance.org/ test forked bsc mainnet
-npx hardhat console --network localhost run forked console
-npx hardhat flatten > flattened.sol include all imports to single file for verify
+## Description
 
+This app let you to send native token, ERC-20, NFTs - ERC-721, ERC-1155 to many addresses in one transaction
 
-```shell
-yarn hardhat accounts
-yarn hardhat clean
-yarn hardhat compile
-yarn hardhat deploy
-yarn hardhat help
-yarn hardhat node
-yarn hardhat test
+## Demo 
+[demo] https://bimkon144.github.io/CryptoFlowV1/;
+
+## Contribution
+
+### Installation and run
+
+```bash
+git clone https://github.com/bimkon144/CryptoFlowV1.git
+cd CryptoFlowV1
+npm i
+create morallis bsct testnet server
+create .env based on .env.example and your wallet key, mnemonic , moralis URL, etherscan key, 
+
+run ```run npx hardhat run tasks/deploy.ts --network testnet```
+run ```npx hardhat  verify --network testnet "putDeployedAddress"```
+put your deployed address to the variable multiSendContractAddress in CsvContainer.tsx
+cd frontend
+npm i
+
+npm start
 ```
+
+### Managing
+
+cd frontend scripts:
+
+* Run project  - ```npm start```
+* Run build  - ```npm build```
+* Run deploy  - ```npm deploy```
+
+cd MultiSenderV1 scripts:
+
+* Run localhost tests  - ```npx hardhat test```
+* Run forked bsc mainnet - ```npx hardhat node --fork https://bsc-dataseed.binance.org/```
+* Run forked bsc testnet```npx hardhat node --fork https://bsc-dataseed.binance.org/```

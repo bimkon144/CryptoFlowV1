@@ -45,7 +45,6 @@
   "scripts": {
     "lint": "",
     "lint:fix": "",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build-contracts": "sol-merger --export-plugin SPDXLicenseRemovePlugin \"./contracts/*.sol\" compiled"
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

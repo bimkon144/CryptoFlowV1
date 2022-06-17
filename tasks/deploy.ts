@@ -1,14 +1,13 @@
-import '@nomiclabs/hardhat-waffle';
-import { task } from 'hardhat/config';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import { ethers, upgrades } from "hardhat";
 
-task('deploy', 'Deploy Greeter contract').setAction(
-  async (_, hre: HardhatRuntimeEnvironment): Promise<void> => {
-    const Greeter = await hre.ethers.getContractFactory('Greeter');
-    const greeter = await Greeter.deploy('Hello, Hardhat!');
+async function main() {
+    const Box = await ethers.getContractFactory("MultiSenderV1");
+    console.log("Deploying Box...");
+    const box = await upgrades.deployProxy(Box, [100, 0], {
+        initializer: "initialize",
+    });
+    await box.deployed();
+    console.log("Box deployed to:", box.address);
+}
 
-    await greeter.deployed();
-
-    console.log('Greeter deployed to:', greeter.address);
-  }
-);
+main();

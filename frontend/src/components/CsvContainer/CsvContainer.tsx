@@ -16,7 +16,7 @@ const CsvContainer: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [addresses, setAddresses] = useState(['']);
     const [amounts, setAmounts] = useState<ethers.BigNumber[]>([]);
-    const [tokensList, setTokensList] = useState([{ label: '', value: '' }]);
+    const [tokensList, setTokensList] = useState<{label: string, value: string}[]>([{ label: '', value: '' }]);
     const [selectedOption, setSelectedOption] = useState('');
     const handleChange = (event:any) => setValue(event.target.value);
     const multiSendContractAddress = "0x92bDE003Ec04a593C57812Cc96070E0952823125";
@@ -95,6 +95,12 @@ const CsvContainer: React.FC = () => {
             const { token_address, symbol, balance } = contract;
             return { label: `${symbol} - ${ethers.utils.formatUnits(balance)} - ${token_address}`, value: token_address }
         })
+        const options2:any = {
+            chain: "binance testnet",
+            address: account,
+          };
+          const bscBalance = await Web3Api.account.getNativeBalance(options2);
+          console.log((+ethers.utils.formatUnits(bscBalance.balance)).toFixed(4));
 
         tokens.unshift({
             value: nativeAssets,
@@ -139,16 +145,11 @@ const CsvContainer: React.FC = () => {
                 }, BigNumber.from(0));
                 console.log(result.toString());
                 console.log('data', selectedOption, addresses, amounts);
-                await tokenContract.approve(multiSendContractAddress, result)
+                const approved = await tokenContract.approve(multiSendContractAddress, result)
+                await approved.wait();
+
                 const setMultisSendTxn = await multisSendContract.multiSend(selectedOption, addresses, amounts);
 
-                await setMultisSendTxn.wait();
-                // const newGreeting = await greeterContract.greet();
-                // window.alert(`Success!\n\nGreeting is now: ${newGreeting}`);
-
-                // if (newGreeting !== greeting) {
-                //     setGreeting(newGreeting);
-                // }
             } catch (error: any) {
                 window.alert(
                     'Error!' + (error && error.message ? `\n\n${error.message}` : '')
@@ -192,7 +193,8 @@ const CsvContainer: React.FC = () => {
                     onChange={onChange}
                     isLoading={loading}
                     options={tokensList}
-                    placeholder="Loading your token addresses..."
+                    isDisabled={tokensList[0].label == ''? true : false}
+                    placeholder={tokensList[0].label == ''? "Loading your token addresses..." : "Your tokens are loaded"}
                 />
             </div>
             <div className='csv-container__item'>
