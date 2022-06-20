@@ -19,7 +19,7 @@ const CsvContainer: React.FC = () => {
     const [tokensList, setTokensList] = useState<{ label: string, value: string }[]>([{ label: '', value: '' }]);
     const [selectedOption, setSelectedOption] = useState('');
     const handleChange = (event: any) => setValue(event.target.value);
-    const multiSendContractAddress = "0x840B92E2DE70F2fdf340F6700cC5E4aCef89278D";
+    const multiSendContractAddress = "0x308043A558061AfAeaE965b59A4D023152231F48";
     const Web3Api = useMoralisWeb3Api();
     const context = useWeb3React<Provider>();
     const { library, active, account, chainId } = context;

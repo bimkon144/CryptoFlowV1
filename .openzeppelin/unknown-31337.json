@@ -2,7 +2,7 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "txHash": "0x590efda2048952d63381036fc4d5a58d52f7dbbd0a15ebaf5ac7bb75086a5aaa"
+    "txHash": "0x71785ed56838410fd1fee247ed9d2a6b1f7009049d91dc50a84543709223f4ae"
   },
   "proxies": [
     {
@@ -31,18 +31,8 @@
       "kind": "transparent"
     },
     {
-      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0x93724dec002fd2eac28f1ea992939b94e111a7f1b0c75fb5938a4cad07e69451",
-      "kind": "transparent"
-    },
-    {
       "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       "txHash": "0xf8de761995b0b9247b720cc6802c1773c2f145f55c61ed0a241609706082ce8d",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-      "txHash": "0x7ab0ce93d68c4ed6869142a0ca684f85a94e1c23e6e03ccb1998d7efe60b8bf8",
       "kind": "transparent"
     },
     {
@@ -73,6 +63,21 @@
     {
       "address": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
       "txHash": "0x9f4ccb38070762f64c8026eb009a806aba7290d7e9bb2c15d8eac710abcef597",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "txHash": "0xef0981a6aec3d3a5d0ad515fcca49e38f716f78d925023eb4c82db1f294a4957",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "txHash": "0x7ca799ffa79126d6057e87a5b12da57c6702ff57f4e6eca47298f79f3f4c54d6",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "txHash": "0xa040970ec99c268ff30bc94be9e5b462ef86c95e45c24fc237fbe0efce247b97",
       "kind": "transparent"
     }
   ],
@@ -168,9 +173,100 @@
         }
       }
     },
-    "f9e4308fc915073beb2ac806bdc17fa0b6e97999d585e176f229f7a905104ea3": {
+    "7c303e321c4527e0a05b7100f33fdec2a62aa1c6c03f478e2cb9f6acdb1fb33f": {
+      "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "txHash": "0x1b4a709aaf2898afad4e40f20098b9fcad628751efdef685fa59772a027b72a9",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:87"
+          },
+          {
+            "label": "arrayLimit",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_uint256",
+            "contract": "MultiSenderV2",
+            "src": "contracts\\MultiSenderV2.sol:11"
+          },
+          {
+            "label": "feePerAccount",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "MultiSenderV2",
+            "src": "contracts\\MultiSenderV2.sol:12"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "961b637ef0c0de8618d64543e60c2fbb5c54fb93af87bbf8851942dbe8f2db9d": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0xe531c4ef786b2e8ee1844a9100f68fb36d6f628851221b5951bed30cce4e54b0",
+      "txHash": "0x2aec3560c5ef0cf261582bc917495e2b83fa4177509b23565bf42e5c5e1cec37",
       "layout": {
         "storage": [
           {
@@ -259,9 +355,9 @@
         }
       }
     },
-    "7c303e321c4527e0a05b7100f33fdec2a62aa1c6c03f478e2cb9f6acdb1fb33f": {
-      "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
-      "txHash": "0x1b4a709aaf2898afad4e40f20098b9fcad628751efdef685fa59772a027b72a9",
+    "de5478cf8120fe0417855e6ceb79db2dea5b921a4971027810605047cbfbd33e": {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0x876d47912fd8e6567f29f7a2ee7f80b0882272ca85469eab9596c103f4e93c11",
       "layout": {
         "storage": [
           {
@@ -310,16 +406,16 @@
             "offset": 0,
             "slot": "101",
             "type": "t_uint256",
-            "contract": "MultiSenderV2",
-            "src": "contracts\\MultiSenderV2.sol:11"
+            "contract": "MultiSenderV1",
+            "src": "contracts\\MultiSenderV1.sol:11"
           },
           {
             "label": "feePerAccount",
             "offset": 0,
             "slot": "102",
             "type": "t_uint256",
-            "contract": "MultiSenderV2",
-            "src": "contracts\\MultiSenderV2.sol:12"
+            "contract": "MultiSenderV1",
+            "src": "contracts\\MultiSenderV1.sol:12"
           }
         ],
         "types": {
