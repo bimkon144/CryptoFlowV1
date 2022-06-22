@@ -11,8 +11,8 @@
     "static/js/4.724d23ba.chunk.js": "/CryptoFlowV1/static/js/4.724d23ba.chunk.js",
     "static/js/4.724d23ba.chunk.js.map": "/CryptoFlowV1/static/js/4.724d23ba.chunk.js.map",
     "main.css": "/CryptoFlowV1/static/css/main.8b4c0665.chunk.css",
-    "main.js": "/CryptoFlowV1/static/js/main.08dd5a3b.chunk.js",
-    "main.js.map": "/CryptoFlowV1/static/js/main.08dd5a3b.chunk.js.map",
+    "main.js": "/CryptoFlowV1/static/js/main.d59a001b.chunk.js",
+    "main.js.map": "/CryptoFlowV1/static/js/main.d59a001b.chunk.js.map",
     "runtime-main.js": "/CryptoFlowV1/static/js/runtime-main.ad01a8e2.js",
     "runtime-main.js.map": "/CryptoFlowV1/static/js/runtime-main.ad01a8e2.js.map",
     "static/js/7.8d49b6d8.chunk.js": "/CryptoFlowV1/static/js/7.8d49b6d8.chunk.js",
@@ -54,6 +54,6 @@
     "static/js/runtime-main.ad01a8e2.js",
     "static/js/7.8d49b6d8.chunk.js",
     "static/css/main.8b4c0665.chunk.css",
-    "static/js/main.08dd5a3b.chunk.js"
+    "static/js/main.d59a001b.chunk.js"
   ]
 }
