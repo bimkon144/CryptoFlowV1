@@ -1,4 +1,5 @@
 import React, { useState, CSSProperties } from 'react';
+import WebStore from "../../store/WebStore";
 
 import {
     useCSVReader,
@@ -83,33 +84,18 @@ const styles = {
     } as CSSProperties,
 };
 
-export default function CSVReader({ setValue, setAddresses, setAmounts }: any) {
+const  CSVReader = () => {
     const { CSVReader } = useCSVReader();
     const [zoneHover, setZoneHover] = useState(false);
     const [removeHoverColor, setRemoveHoverColor] = useState(
         DEFAULT_REMOVE_HOVER_COLOR
     );
-    const splitToArrays = (data: string[][]) => {
-        const addresses: string[] = [];
-        const values: string[] = [];
-        data.forEach((element, index) => {
-            addresses.push(element[0]);
-        });
-        data.forEach((element, index) => {
-            values.push(element[1]);
-        });
-        return { addresses, values }
-    }
+
     return (
         <CSVReader
             onUploadAccepted={(results: { data: any[]; }) => {
-                setValue(results.data.join('\r\n'));
-                const { addresses, values } = splitToArrays(results.data);
-                setAddresses(addresses);
-                setAmounts(values);
-                console.log('---------------------------');
-                console.log(results);
-                console.log('---------------------------');
+                WebStore.setData(results.data)
+                WebStore.setTextAreaPlaceholder(results.data)
                 setZoneHover(false);
             }}
             onDragOver={(event: DragEvent) => {
@@ -175,3 +161,5 @@ export default function CSVReader({ setValue, setAddresses, setAmounts }: any) {
         </CSVReader>
     );
 }
+
+export default CSVReader;

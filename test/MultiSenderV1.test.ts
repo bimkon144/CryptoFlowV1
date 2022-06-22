@@ -2,8 +2,6 @@ import { expect } from 'chai';
 import { ethers, network, upgrades, waffle } from 'hardhat';
 
 describe("MultiSender", (): void => {
-    let decimals = Math.pow(10, 18);
-    // let decimalsBigInt = 10n ** 18n;
     let owner: any;
     let user0: any, user1: any, user2: any, user3: any, user4: any, user5: any, user6: any, user7: any, user8: any, user9: any;
     let multiSender: any;
@@ -80,7 +78,7 @@ describe("MultiSender", (): void => {
         const tokenValues = [ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10")];
         const provider = waffle.provider;
 
-        expect(Math.round(+ethers.utils.formatUnits(await provider.getBalance(owner.address)))).to.eq(10000);
+        expect((ethers.utils.formatUnits(await provider.getBalance(owner.address)))).to.eq(10000);
         await multiSender.multiSendNativeToken(usersAddresses, tokenValues, {value: ethers.utils.parseEther("150")});
         expect(await provider.getBalance(user1.address)).eq(ethers.utils.parseEther("10010"));
         expect(await provider.getBalance(user2.address)).eq(ethers.utils.parseEther("10010"));

@@ -4,9 +4,9 @@ import { ActivateDeactivate } from '../ActivateDeactivate/ActivateDeactivate';
 
 const Header: FC = () => {
   const navbar = [
-    { name: 'Home', to: '/' },
-    { name: 'Blogs', to: '/blogs' },
-    { name: 'Contact', to: '/contact' },
+    { name: '', to: '/' },
+    { name: '', to: '/blogs' },
+    { name: '', to: '/contact' },
   ];
   return (
     <header className="header">

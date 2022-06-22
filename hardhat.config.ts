@@ -30,10 +30,8 @@ const config: HardhatUserConfig = {
         : []
         //moralis api for deploy/verify on testnet
     },
-    mainnet: {
-      url: "https://bsc-dataseed.binance.org/",
-      chainId: 56,
-      gasPrice: 20000000000,
+    bscMainnet: {
+      url: process.env.MORALIS_MAIN_URL,
       accounts: { mnemonic: process.env.MNEMONIC }
     }
     // ropsten: {

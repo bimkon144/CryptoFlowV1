@@ -93,7 +93,9 @@ function Activate(): ReactElement {
       disabled={active}
       style={{
         cursor: active ? 'not-allowed' : 'pointer',
-        borderColor: activating ? 'orange' : active ? 'unset' : 'green'
+        borderColor: activating ? 'orange' : active ? 'unset' : 'green',
+        padding: 0,
+        border: "none"
       }}
       onClick={handleActivate}
     >
@@ -117,7 +119,9 @@ function Deactivate(): ReactElement {
       disabled={!active}
       style={{
         cursor: active ? 'pointer' : 'not-allowed',
-        borderColor: active ? 'red' : 'unset'
+        borderColor: active ? 'red' : 'unset',
+        padding: 0,
+        border: "none"
       }}
       onClick={handleDeactivate}
     >
