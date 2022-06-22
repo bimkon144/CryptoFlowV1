@@ -68,7 +68,9 @@ const CsvContainer: React.FC = observer(() => {
         readString(WebStore.textAreaPlaceholder, {
             worker: true,
             complete: (results: { data: any[]; }) => {
-                WebStore.setData(results.data);
+                const newArray = results.data.filter(n => n !='');
+                WebStore.setData(newArray);
+
             },
         });
     };

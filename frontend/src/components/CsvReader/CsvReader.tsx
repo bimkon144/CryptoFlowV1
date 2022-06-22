@@ -94,8 +94,9 @@ const  CSVReader = () => {
     return (
         <CSVReader
             onUploadAccepted={(results: { data: any[]; }) => {
-                WebStore.setData(results.data)
-                WebStore.setTextAreaPlaceholder(results.data)
+                const newArray = results.data.filter(n => n !='');
+                WebStore.setData(newArray)
+                WebStore.setTextAreaPlaceholder(newArray)
                 setZoneHover(false);
             }}
             onDragOver={(event: DragEvent) => {
