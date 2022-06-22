@@ -91,8 +91,10 @@ const CsvContainer: React.FC = observer(() => {
                     return sum.add(elem);
                 }, BigNumber.from(0));
                 if (selectedOption === WebStore.tokenList[0].value) {
+                    console.log('fire');
                     await multisSendContract.multiSendNativeToken(WebStore.addresses, WebStore.amounts, { value: result });
                 } else {
+                    console.log('approve', (+ethers.utils.formatUnits(result)));
                     const approved = await tokenContract.approve(multiSendContractAddress, result)
                     await approved.wait();
                     const txdone = await multisSendContract.multiSendToken(selectedOption, WebStore.addresses, WebStore.amounts);

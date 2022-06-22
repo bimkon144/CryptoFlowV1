@@ -23,12 +23,16 @@ class WebStore {
   }
 
   setData(data: string[][]) {
+    const addresses: string[] = [];
+    const values: ethers.BigNumber[] = [];
     data.forEach((element, index) => {
-      this.addresses.push(element[0]);
+      addresses.push(element[0]);
     });
     data.forEach((element, index) => {
-      this.amounts.push(ethers.utils.parseEther(element[1]));
+      values.push(ethers.utils.parseEther(element[1]));
     });
+    this.addresses = addresses;
+    this.amounts = values;
   }
 
   setTextAreaPlaceholder(data: string[][]) {

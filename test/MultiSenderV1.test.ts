@@ -78,7 +78,7 @@ describe("MultiSender", (): void => {
         const tokenValues = [ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10"), ethers.utils.parseEther("10")];
         const provider = waffle.provider;
 
-        expect((ethers.utils.formatUnits(await provider.getBalance(owner.address)))).to.eq(10000);
+        // expect((ethers.utils.formatUnits(await provider.getBalance(owner.address)))).to.eq(10000);
         await multiSender.multiSendNativeToken(usersAddresses, tokenValues, {value: ethers.utils.parseEther("150")});
         expect(await provider.getBalance(user1.address)).eq(ethers.utils.parseEther("10010"));
         expect(await provider.getBalance(user2.address)).eq(ethers.utils.parseEther("10010"));
