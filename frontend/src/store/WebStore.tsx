@@ -1,14 +1,23 @@
 import { ethers } from "ethers";
 import { makeAutoObservable } from "mobx";
 
-// Standard interface and functions
-interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
+
+interface rowArray {
+  indexOfToggledArray: number;
+  isReadOnly: boolean;
+  isChecked: boolean;
 }
 
 
+
+const addToggledItem = (arrayOfTogledEdit: rowArray[], indexOfArray: number, stateOfEditable: boolean, stateOfChecked: boolean): rowArray[] => [
+  ...arrayOfTogledEdit,
+  {
+    indexOfToggledArray: indexOfArray,
+    isReadOnly:stateOfEditable,
+    isChecked:stateOfChecked,
+  },
+];
 
 
 class WebStore {
@@ -18,8 +27,39 @@ class WebStore {
   textAreaPlaceholder: string = '';
   tokenList = [{ label: '', value: '' }];
 
+  signature: string = ''
+  addressesBookData: string[][] = [];
+  toggledEditArray: rowArray[] = [];
+  cidPhrase: string = ''
+  isCidModal:boolean = false;
+  isModalShow:boolean = false;
+
   constructor() {
     makeAutoObservable(this);
+  }
+  setInitEditable(isToggled: boolean, isChecked:boolean, indexOfToggledArray: number) {
+    this.toggledEditArray = addToggledItem(this.toggledEditArray,indexOfToggledArray, isToggled, isChecked);
+  }
+  
+  toggleEdit(isReadOnly: boolean, indexOfToggledArray: number) {
+    this.toggledEditArray[indexOfToggledArray].isReadOnly = isReadOnly;
+  }
+
+  toggleCheckbox(isToggled: boolean, indexOfToggledArray: number) {
+   this.toggledEditArray[indexOfToggledArray].isChecked = isToggled
+    
+  }
+
+  setCidModal (isOn:boolean) {
+    this.isCidModal = isOn;
+  }
+
+  setModalShow (isShow:boolean) {
+    this.isModalShow = isShow;
+  }
+
+  setCidPhrase(cid:string) {
+    this.cidPhrase = cid;
   }
 
   setData(data: string[][]) {
@@ -35,12 +75,74 @@ class WebStore {
     this.amounts = values;
   }
 
+  setFilteredData () {
+    const filteredArray = this.addressesBookData.map((array) => {
+      return array.slice(1);
+    });
+    this.setData(filteredArray);
+  }
+
+  setAddressesBookData(data: string[][]) {
+    this.addressesBookData = data;
+  }
+
+
   setTextAreaPlaceholder(data: string[][]) {
     this.textAreaPlaceholder = data.join('\r\n')
   }
 
   setTokensList(tokens: { label: string, value: string }[]) {
     this.tokenList = tokens;
+  }
+
+  setSignature(signature: string) {
+    this.signature = signature;
+  }
+
+  addRow() {
+    this.addressesBookData.push([])
+  }
+
+  removeRow(indexOfArray: number) {
+    this.addressesBookData.splice(indexOfArray, 1);
+  }
+
+  getValueFromAddressesBookData(nameOfInput: string, arrayIndex: number): string {
+    let value
+    switch (nameOfInput) {
+      case 'username':
+        value = this.addressesBookData[arrayIndex][0];
+        break;
+      case 'address':
+        value = this.addressesBookData[arrayIndex][1];
+        break;
+      case 'amount':
+        value = this.addressesBookData[arrayIndex][2];
+        break;
+      default:
+        value = '';
+        break;
+    }
+    return value
+  }
+
+  setIndexedValueToAddressesBookData(nameOfInput: string, arrayIndex: number, value: any): void {
+    switch (nameOfInput) {
+      case 'username':
+        this.addressesBookData[arrayIndex][0] = value;
+        break;
+      case 'address':
+        this.addressesBookData[arrayIndex][1] = value
+        break;
+      case 'amount':
+        this.addressesBookData[arrayIndex][2] = value
+        break;
+      default:
+        break;
+    }
+  }
+  clearTheTable() {
+    this.addressesBookData = [];
   }
 
   // load(url: string) {

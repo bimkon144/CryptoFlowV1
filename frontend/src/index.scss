@@ -3,6 +3,7 @@
 @import './components/Footer/Footer.scss';
 @import './components/Wrapper/Wrapper.scss';
 @import './components/CsvContainer/CsvContainer.scss';
+@import "~bootstrap/scss/bootstrap";
 
 html,
 body {
@@ -12,8 +13,7 @@ body {
   font-family: Roboto, Arial, sans-serif;
 }
 
-#__next {
-  max-width: 1440px;
+#root {
   margin: 0 auto;
   height: 100%;
 }
@@ -45,4 +45,27 @@ button:active,
 button:focus {
 
   cursor: pointer;
+}
+
+.book__form {
+  width: 100%;
+}
+
+.book__list-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.book__input-item {
+  min-width: 280px;
+
+  &:nth-child(3) {
+    min-width: 400px;
+  }
+
+  &:nth-child(4) {
+    min-width: unset;
+    max-width: 60px;
+  }
 }

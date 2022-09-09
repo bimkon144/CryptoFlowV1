@@ -1,5 +1,4 @@
-import { useWeb3React } from '@web3-react/core';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement } from 'react';
 
 const Wrapper = (props: { children: ReactElement[] }) => {
   const { children } = props;
@@ -9,9 +8,9 @@ const Wrapper = (props: { children: ReactElement[] }) => {
       <div className="main-container-page-with-footer__wrapper">
         <div className="main-container-page-with-footer__content">
           {children[0]}
-        </div>
-        <div className="main-container-page-with-footer__body">
-          {children[1]}
+          <div className="main-container-page-with-footer__body">
+            {children[1]}
+          </div>
         </div>
         <div className="main-container-page-with-footer__footer">
           {children[2]}

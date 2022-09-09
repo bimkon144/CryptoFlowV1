@@ -1,16 +1,16 @@
 .main-container-page-with-footer__wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   min-height: 100%;
+  height: 100vh
 }
 
 .main-container-page-with-footer__content {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 }
 
 .main-container-page-with-footer__body {
-  height: 100%;
+  height: calc(100% - 143px);
   display: flex;
   background: #111d39;
   padding-top: 20px;
@@ -19,4 +19,22 @@
 
 .main-container-page-with-footer__footer {
   flex: 0 0 auto;
+}
+
+.book {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.black {
+  color:white;
+}
+
+.book__list {
+  &-items {
+    color: white;
+  }
+  color: white;
 }

@@ -1,12 +1,14 @@
-import React, { useState, CSSProperties } from 'react';
+import { useState, CSSProperties } from 'react';
 import WebStore from "../../store/WebStore";
+import deployToIpfs from '../../utils/deployToIpfs';
+import AES from 'crypto-js/aes';
 
 import {
     useCSVReader,
     lightenDarkenColor,
     formatFileSize,
-    usePapaParse
 } from 'react-papaparse';
+import getEncryptedText from '../../utils/getEncryptedText';
 
 const GREY = '#CCC';
 const GREY_LIGHT = 'rgba(255, 255, 255, 0.4)';
@@ -84,20 +86,41 @@ const styles = {
     } as CSSProperties,
 };
 
-const  CSVReader = () => {
+const CSVReader = (data: { isProfile?: boolean }) => {
     const { CSVReader } = useCSVReader();
     const [zoneHover, setZoneHover] = useState(false);
     const [removeHoverColor, setRemoveHoverColor] = useState(
         DEFAULT_REMOVE_HOVER_COLOR
     );
+    const { isProfile } = data;
+
+    async function deployDataToIpfs(dataArray: string[][], encryptedData: string) {
+        const cid = await deployToIpfs(encryptedData);
+        WebStore.setCidPhrase(cid);
+        WebStore.setCidModal(true);
+        WebStore.setModalShow(true)
+        WebStore.setAddressesBookData(dataArray);
+
+    }
 
     return (
         <CSVReader
-            onUploadAccepted={(results: { data: any[]; }) => {
-                const newArray = results.data.filter(n => n !='');
-                WebStore.setData(newArray)
-                WebStore.setTextAreaPlaceholder(newArray)
-                setZoneHover(false);
+            onUploadAccepted={(results: { data: any[]; }, file: any) => {
+                if (isProfile) {
+                    const filteredArray: any = results.data.filter(n => n != '');
+                    console.log(filteredArray);
+                    const encryptedText = getEncryptedText(filteredArray, WebStore.signature);
+                    console.log(encryptedText)
+                    deployDataToIpfs(filteredArray, encryptedText);
+
+                } else {
+                    const newArray = results.data.filter(n => n != '');
+                    console.log(newArray);
+                    WebStore.setData(newArray)
+                    WebStore.setTextAreaPlaceholder(newArray)
+                    setZoneHover(false);
+                }
+
             }}
             onDragOver={(event: DragEvent) => {
                 event.preventDefault();

@@ -1,12 +1,12 @@
-import { ActivateDeactivate } from "../components/ActivateDeactivate/ActivateDeactivate";
 import CsvContainer from "../components/CsvContainer/CsvContainer";
+import TableListItems from '../components/TableList/TableList';
 
 const Home = () => {
-    return (
-      <>
+  return (
+    <>
       <CsvContainer />
-      </>
-    );
-  };
-  
-  export default Home;
+    </>
+  );
+};
+
+export default Home;

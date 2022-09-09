@@ -7,8 +7,8 @@ import {
 import { MouseEvent, ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { injected } from '../../utils/connectors';
-import { useEagerConnect, useInactiveListener } from '../../utils/hooks';
 import { Provider } from '../../utils/provider';
+
 
 type ActivateFunction = (
   connector: AbstractConnector,
@@ -77,7 +77,7 @@ function Activate(): ReactElement {
     }
 
     _activate(activate);
-    
+
   }
 
   // // handle logic to eagerly connect to the injected ethereum provider, if it exists and has
