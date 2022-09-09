@@ -11,10 +11,15 @@ const TableList = observer(() => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const filteredAddressesToSend = WebStore.addressesBookData.filter(array => array.includes(true));
+    const cloneOfBookData = JSON.parse(JSON.stringify(WebStore.addressesBookData))
+    cloneOfBookData.forEach((array, index) => {
+      array.unshift((WebStore.toggledEditArray[index].isChecked).toString());
+    })
+    const filteredAddressesToSend = cloneOfBookData.filter(array => array.includes('true'));
     const slicedData = filteredAddressesToSend.map((array) => {
       return array.slice(2);
     });
+    console.log('sliced',slicedData, 'filtered',filteredAddressesToSend);
     WebStore.setData(slicedData);
     WebStore.setTextAreaPlaceholder(slicedData)
     navigate("/");
@@ -24,7 +29,7 @@ const TableList = observer(() => {
     //тут нужно запушить состояния чекбоксов в адрес бук
     const cloneOfBookData = JSON.parse(JSON.stringify(WebStore.addressesBookData))
     cloneOfBookData.forEach((array, index) => {
-      array.unshift(WebStore.toggledEditArray[index].isChecked);
+      array.unshift((WebStore.toggledEditArray[index].isChecked).toString());
     })
     const encryotedText = getEncryptedText(cloneOfBookData, WebStore.signature);
     const cidPhrase = await deployToIpfs(encryotedText)

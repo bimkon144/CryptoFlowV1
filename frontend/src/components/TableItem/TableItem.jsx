@@ -14,7 +14,12 @@ const TableItem = observer(({ data }) => {
 
     }
     useEffect(() => {
-        WebStore.setInitEditable(true, true, data.index)
+
+        if (WebStore.dataWithCheckboxState[0] == undefined) {
+            WebStore.setInitEditable(true, true, data.index)
+            console.log(WebStore.dataWithCheckboxState, 'lenght is 2')
+        }
+
 
     }, []);
 

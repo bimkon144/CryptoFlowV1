@@ -9,6 +9,7 @@ import WebStore from "../store/WebStore";
 import { useWeb3React } from '@web3-react/core';
 import { Provider } from '../utils/provider';
 import TableListItems from '../components/TableList/TableList';
+import { forEachChild } from 'typescript';
 
 
 const Book = observer(() => {
@@ -26,7 +27,18 @@ const Book = observer(() => {
           const originalText = JSON.parse(bytes.toString(ens));
           console.log('Results:', originalText);
           console.log('---------------------------');
-          WebStore.setAddressesBookData(originalText);
+          const slicedDataToNormalView = originalText.map((array:[]) => {
+            return array.slice(1);
+          });
+          WebStore.setDataWithCheckboxState(originalText);
+          WebStore.setAddressesBookData(slicedDataToNormalView);
+          console.log('originaxl test', originalText)
+          console.log('webstorechecked1', WebStore.toggledEditArray)
+          originalText.forEach((array:string[], index:number) => {
+            console.log(array[0])
+            WebStore.setCheckboxStateFromIpfs(array, index);
+          });
+          console.log('webstorechecked2', WebStore.toggledEditArray)
         }
         catch (err) {
           alert(`You cannot decrypt the data `)

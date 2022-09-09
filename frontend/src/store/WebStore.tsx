@@ -33,12 +33,19 @@ class WebStore {
   cidPhrase: string = ''
   isCidModal:boolean = false;
   isModalShow:boolean = false;
+  dataWithCheckboxState: string[][] = []
 
   constructor() {
     makeAutoObservable(this);
   }
   setInitEditable(isToggled: boolean, isChecked:boolean, indexOfToggledArray: number) {
     this.toggledEditArray = addToggledItem(this.toggledEditArray,indexOfToggledArray, isToggled, isChecked);
+  }
+
+  setCheckboxStateFromIpfs (array:string[], index: number) {
+    const checkBoxState = array[0].toLowerCase() === 'true'? true : false;
+    console.log(checkBoxState, 'checkbostate');
+    this.toggledEditArray = addToggledItem(this.toggledEditArray, index, true, checkBoxState)
   }
   
   toggleEdit(isReadOnly: boolean, indexOfToggledArray: number) {
@@ -84,6 +91,10 @@ class WebStore {
 
   setAddressesBookData(data: string[][]) {
     this.addressesBookData = data;
+  }
+
+  setDataWithCheckboxState(data: string[][]) {
+    this.dataWithCheckboxState = data;
   }
 
 
