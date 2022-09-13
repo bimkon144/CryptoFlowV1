@@ -1,7 +1,7 @@
 import { useState, CSSProperties } from 'react';
 import WebStore from "../../store/WebStore";
 import deployToIpfs from '../../utils/deployToIpfs';
-import AES from 'crypto-js/aes';
+
 
 import {
     useCSVReader,
@@ -108,14 +108,11 @@ const CSVReader = (data: { isProfile?: boolean }) => {
             onUploadAccepted={(results: { data: any[]; }, file: any) => {
                 if (isProfile) {
                     const filteredArray: any = results.data.filter(n => n != '');
-                    console.log(filteredArray);
                     const encryptedText = getEncryptedText(filteredArray, WebStore.signature);
-                    console.log(encryptedText)
                     deployDataToIpfs(filteredArray, encryptedText);
 
                 } else {
                     const newArray = results.data.filter(n => n != '');
-                    console.log(newArray);
                     WebStore.setData(newArray)
                     WebStore.setTextAreaPlaceholder(newArray)
                     setZoneHover(false);

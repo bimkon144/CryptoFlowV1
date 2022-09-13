@@ -4,7 +4,7 @@ import {
   NoEthereumProviderError,
   UserRejectedRequestError
 } from '@web3-react/injected-connector';
-import { MouseEvent, ReactElement, useState } from 'react';
+import { MouseEvent, ReactElement} from 'react';
 import styled from 'styled-components';
 import { injected } from '../../utils/connectors';
 import { Provider } from '../../utils/provider';
@@ -65,35 +65,26 @@ function Activate(): ReactElement {
   const context = useWeb3React<Provider>();
   const { activate, active } = context;
 
-  const [activating, setActivating] = useState<boolean>(false);
+
 
   function handleActivate(event: MouseEvent<HTMLButtonElement>): void {
     event.preventDefault();
 
     async function _activate(activate: ActivateFunction): Promise<void> {
-      setActivating(true);
+
       await activate(injected);
-      setActivating(false);
+
     }
 
     _activate(activate);
 
   }
 
-  // // handle logic to eagerly connect to the injected ethereum provider, if it exists and has
-  // // granted access already
-  // const eagerConnectionSuccessful = useEagerConnect();
-
-  // // handle logic to connect in reaction to certain events on the injected ethereum provider,
-  // // if it exists
-  // useInactiveListener(!eagerConnectionSuccessful);
-
   return (
     <StyledActivateButton
       disabled={active}
       style={{
         cursor: active ? 'not-allowed' : 'pointer',
-        borderColor: activating ? 'orange' : active ? 'unset' : 'green',
         padding: 0,
         border: "none"
       }}
@@ -119,7 +110,6 @@ function Deactivate(): ReactElement {
       disabled={!active}
       style={{
         cursor: active ? 'pointer' : 'not-allowed',
-        borderColor: active ? 'red' : 'unset',
         padding: 0,
         border: "none"
       }}

@@ -1,5 +1,5 @@
 import CSVReader from '../components/CsvReader/CsvReader';
-import { useState, useEffect } from 'react';
+import {useEffect } from 'react';
 import MyVerticallyCenteredModal from '../components/Modal/MyVerticallyCenteredModal'
 import { usePapaParse } from 'react-papaparse';
 import AES from 'crypto-js/aes';
@@ -9,11 +9,8 @@ import WebStore from "../store/WebStore";
 import { useWeb3React } from '@web3-react/core';
 import { Provider } from '../utils/provider';
 import TableListItems from '../components/TableList/TableList';
-import { forEachChild } from 'typescript';
-
 
 const Book = observer(() => {
-  const [array, setArray] = useState<any>();
   const { readRemoteFile } = usePapaParse();
   const { library } = useWeb3React<Provider>();
 
@@ -25,20 +22,16 @@ const Book = observer(() => {
           const enscryptedText = results.data.toString()
           const bytes = AES.decrypt(enscryptedText, WebStore.signature);
           const originalText = JSON.parse(bytes.toString(ens));
-          console.log('Results:', originalText);
           console.log('---------------------------');
           const slicedDataToNormalView = originalText.map((array:[]) => {
             return array.slice(1);
           });
           WebStore.setDataWithCheckboxState(originalText);
           WebStore.setAddressesBookData(slicedDataToNormalView);
-          console.log('originaxl test', originalText)
-          console.log('webstorechecked1', WebStore.toggledEditArray)
           originalText.forEach((array:string[], index:number) => {
-            console.log(array[0])
             WebStore.setCheckboxStateFromIpfs(array, index);
           });
-          console.log('webstorechecked2', WebStore.toggledEditArray)
+
         }
         catch (err) {
           alert(`You cannot decrypt the data `)
@@ -57,16 +50,11 @@ const Book = observer(() => {
 
     if (prompted != null) {
       const rightUrl = 'https://ipfs.io/ipfs/' + prompted
-      console.log('rightURL', rightUrl);
       handleReadRemoteFile(rightUrl);
     } else {
       alert('Вы ничего не ввели')
     }
 
-  }
-
-  const handleNewArrayChange = (value: []) => {
-    setArray(value)
   }
 
   const onCreateClick = () => {

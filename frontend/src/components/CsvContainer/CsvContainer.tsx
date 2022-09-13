@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import CSVReader from '../CsvReader/CsvReader';
 import { usePapaParse } from 'react-papaparse';
-import { useMoralisWeb3Api } from "react-moralis";
 import React from 'react';
 import Select from 'react-select';
 import { useWeb3React } from '@web3-react/core';
@@ -11,7 +10,6 @@ import multisenderV1 from './MultiSenderV1.json'
 import ERC20 from './ERC20.json'
 import { observer } from 'mobx-react-lite';
 import WebStore from "../../store/WebStore";
-import fetchTokenBalances from '../../utils/fetchTokenBalance';
 
 
 const CsvContainer: React.FC = observer(() => {
@@ -19,58 +17,50 @@ const CsvContainer: React.FC = observer(() => {
     const context = useWeb3React<Provider>();
     const { library, active, account, chainId } = context;
     const multiSendContractAddress = "0xe776C27ebFe7D0Eb741aD3Ab113Bbcb5659396f5";
+    const busdAddress = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
 
     const [loading, setLoading] = useState(true);
     const [selectedOption, setSelectedOption] = useState('');
 
 
-    const Web3Api = useMoralisWeb3Api();
+    const fetchTokenBalances = async () => {
+        let nativeAssets, nativeAssetsAddress: any;
+        const nativeAssetBalance = await library!.getBalance(account!);
 
-    // const fetchTokenBalances = async () => {
-    //     let netIdName,  nativeAssets, nativeAssetsAddress: any;
-    //     const balance = await library!.getBalance(account!);
-    //     switch (chainId) {
-    //         case 56:
-    //             netIdName = 'binance smart chain'
-    //             nativeAssets = 'BNB'
-    //             nativeAssetsAddress = '0xB8c77482e45F1F44dE1745F52C74426C631bDD52'
-    //             console.log('This is binance mainnet', chainId)
-    //             break;
-    //         case 97:
-    //             netIdName = 'binance testnet'
-    //             nativeAssets = 'BNB'
-    //             nativeAssetsAddress = '0x62b35Eb73edcb96227F666A878201b2cF915c2B5'
-    //             console.log('This is binance test smart chain', chainId)
-    //             break;
-    //         default:
-    //             netIdName = 'Unknown'
-    //             console.log('This is an unknown network.', chainId)
-    //     }
-    //     const options: any = {
-    //         chain: netIdName,
-    //         address: account,
-    //     };
+        switch (chainId) {
+            case 56:
+                nativeAssets = 'BNB'
+                nativeAssetsAddress = '0xB8c77482e45F1F44dE1745F52C74426C631bDD52'
+                console.log('This is binance mainnet', chainId)
+                break;
+            case 97:
+                nativeAssets = 'BNB'
+                nativeAssetsAddress = '0x62b35Eb73edcb96227F666A878201b2cF915c2B5'
+                console.log('This is binance test smart chain', chainId)
+                break;
+            default:
+                console.log('This is an unknown network.', chainId)
+        }
+        const signer = library!.getSigner();
 
-    //     const balances = await Web3Api.account.getTokenBalances(options);
-    //     let tokens = balances.map((contract) => {
-    //         const { token_address, symbol, balance } = contract;
-    //         return { label: `${symbol} - ${(+ethers.utils.formatUnits(balance)).toFixed(4)} - ${token_address}`, value: token_address }
-    //     })
-    //     console.log('balanced', balances, 'tokens', tokens);
-    //     tokens.unshift({
-    //         value: nativeAssetsAddress,
-    //         label: `${nativeAssets} - ${(+ethers.utils.formatUnits(balance)).toFixed(4)}`
-    //     })
-    //     WebStore.setTokensList(tokens);
-    // };
+        const busdContract = new ethers.Contract(busdAddress, ERC20, signer)
+        const balanceOfBusd = await busdContract.balanceOf(account);
+        const symbolOfBusd = await busdContract.symbol();
+
+        let newTokens = [{ label: `${symbolOfBusd} - ${(+ethers.utils.formatUnits(balanceOfBusd)).toFixed(4)} - ${busdAddress}`, value: busdAddress }];
+        newTokens.unshift({
+            label: `${nativeAssets} - ${(+ethers.utils.formatUnits(nativeAssetBalance)).toFixed(4)} - ${nativeAssetsAddress}`,
+            value: nativeAssetsAddress
+        })
+        WebStore.setTokensList(newTokens);
+    };
 
 
     const handleReadString = () => {
         readString(WebStore.textAreaPlaceholder, {
             worker: true,
             complete: (results: { data: any[]; }) => {
-                const newArray = results.data.filter(n => n !='');
-                console.log(newArray);
+                const newArray = results.data.filter(n => n != '');
                 WebStore.setData(newArray);
 
             },
@@ -90,21 +80,20 @@ const CsvContainer: React.FC = observer(() => {
             try {
                 const signer = library!.getSigner();
                 const multisSendContract = new ethers.Contract(multiSendContractAddress, multisenderV1.abi, signer);
-
                 const tokenContract = new ethers.Contract(selectedOption, ERC20, signer);
+
+
                 let result = WebStore.amounts.reduce(function (sum: ethers.BigNumber, elem) {
                     return sum.add(elem);
                 }, BigNumber.from(0));
                 if (selectedOption === WebStore.tokenList[0].value) {
-                    console.log('fire');
                     await multisSendContract.multiSendNativeToken(WebStore.addresses, WebStore.amounts, { value: result });
                 } else {
-                    console.log('approve', (+ethers.utils.formatUnits(result)));
                     const approved = await tokenContract.approve(multiSendContractAddress, result)
                     await approved.wait();
                     const txdone = await multisSendContract.multiSendToken(selectedOption, WebStore.addresses, WebStore.amounts);
                     await txdone.wait();
-                    fetchTokenBalances(library, active, account, chainId, Web3Api);
+                    fetchTokenBalances();
                 }
 
             } catch (error: any) {
@@ -131,7 +120,7 @@ const CsvContainer: React.FC = observer(() => {
     useEffect((): void => {
         if (active) {
             setSelectedOption('');
-            fetchTokenBalances(library, active, account, chainId, Web3Api);
+            fetchTokenBalances();
             setLoading(false);
         } else {
             WebStore.setTokensList([{ label: '', value: '' }]);

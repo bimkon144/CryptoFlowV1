@@ -9,15 +9,11 @@ const TableItem = observer(({ data }) => {
     const handleChangeInput = (event, index, name) => {
         const value = event.target.value;
         WebStore.setIndexedValueToAddressesBookData(name, index, value);
-        console.log(WebStore.toggledEditArray[data.index].isReadOnly, data.index)
-        console.log(WebStore.toggledEditArray[data.index])
-
     }
     useEffect(() => {
 
-        if (WebStore.dataWithCheckboxState[0] == undefined) {
+        if (WebStore.dataWithCheckboxState[0] === undefined) {
             WebStore.setInitEditable(true, true, data.index)
-            console.log(WebStore.dataWithCheckboxState, 'lenght is 2')
         }
 
 

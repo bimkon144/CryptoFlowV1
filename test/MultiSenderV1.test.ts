@@ -17,33 +17,33 @@ describe("MultiSender", (): void => {
     });
 
 
-    // it("should withdraw ether from contract to owner", async () => {
-    //     const provider = waffle.provider;
-    //     expect(await provider.getBalance(multiSender.address)).to.eq(0);
-    //     const sendEth = await owner.sendTransaction({
-    //         to: multiSender.address,
-    //         value: ethers.utils.parseEther("3000")
-    //     });
-    //     expect(await provider.getBalance(multiSender.address)).to.eq(ethers.utils.parseEther("3000"));
-    //     await multiSender.withdraw(user0.address);
-    //     expect(await provider.getBalance(multiSender.address)).to.eq(ethers.utils.parseEther("0"));
+    it("should withdraw ether from contract to owner", async () => {
+        const provider = waffle.provider;
+        expect(await provider.getBalance(multiSender.address)).to.eq(0);
+        const sendEth = await owner.sendTransaction({
+            to: multiSender.address,
+            value: ethers.utils.parseEther("3000")
+        });
+        expect(await provider.getBalance(multiSender.address)).to.eq(ethers.utils.parseEther("3000"));
+        await multiSender.withdraw(user0.address);
+        expect(await provider.getBalance(multiSender.address)).to.eq(ethers.utils.parseEther("0"));
 
-    // });
+    });
 
-    // it("method setFeePerAccount should set fee", async () => {
-    //     await multiSender.setFeePerAccount(ethers.utils.parseEther("1"))
-    //     expect(await multiSender.feePerAccount()).to.equal(ethers.utils.parseEther("1"));
-    // });
+    it("method setFeePerAccount should set fee", async () => {
+        await multiSender.setFeePerAccount(ethers.utils.parseEther("1"))
+        expect(await multiSender.feePerAccount()).to.equal(ethers.utils.parseEther("1"));
+    });
 
-    // it("method setFeePerAccount can be called only by Owner", async () => {
-    //     await expect(multiSender.connect(user0).setFeePerAccount(ethers.utils.parseEther("1"))).to.be.revertedWith("Ownable: caller is not the owner");
-    // });
+    it("method setFeePerAccount can be called only by Owner", async () => {
+        await expect(multiSender.connect(user0).setFeePerAccount(ethers.utils.parseEther("1"))).to.be.revertedWith("Ownable: caller is not the owner");
+    });
 
 
-    // it("method setArrayLimit should setArrayLimit", async () => {
-    //     await multiSender.setArrayLimit(244);
-    //     expect(await multiSender.arrayLimit()).to.equal(244);
-    // });
+    it("method setArrayLimit should setArrayLimit", async () => {
+        await multiSender.setArrayLimit(244);
+        expect(await multiSender.arrayLimit()).to.equal(244);
+    });
 
     it("Multisend should send tokens ERC20 to addresses ", async () => {
         const Token = await ethers.getContractFactory("BimkonToken");

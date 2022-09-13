@@ -44,7 +44,6 @@ class WebStore {
 
   setCheckboxStateFromIpfs (array:string[], index: number) {
     const checkBoxState = array[0].toLowerCase() === 'true'? true : false;
-    console.log(checkBoxState, 'checkbostate');
     this.toggledEditArray = addToggledItem(this.toggledEditArray, index, true, checkBoxState)
   }
   

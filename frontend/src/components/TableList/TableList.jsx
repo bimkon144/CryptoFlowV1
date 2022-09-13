@@ -19,7 +19,7 @@ const TableList = observer(() => {
     const slicedData = filteredAddressesToSend.map((array) => {
       return array.slice(2);
     });
-    console.log('sliced',slicedData, 'filtered',filteredAddressesToSend);
+
     WebStore.setData(slicedData);
     WebStore.setTextAreaPlaceholder(slicedData)
     navigate("/");
@@ -36,7 +36,6 @@ const TableList = observer(() => {
     WebStore.setCidPhrase(cidPhrase);
     WebStore.setCidModal(true);
     WebStore.setModalShow(true)
-    console.log('cidPhrase', WebStore.cidPhrase)
 
   }
 

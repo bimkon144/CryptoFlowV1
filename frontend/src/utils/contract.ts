@@ -1,5 +1,6 @@
 const contract = {
     address: "0xe776C27ebFe7D0Eb741aD3Ab113Bbcb5659396f5",
+    busdAddress: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
     abi: [
         {
           "anonymous": false,
